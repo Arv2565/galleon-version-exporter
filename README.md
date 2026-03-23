@@ -15,7 +15,7 @@ Galleon Cluster 1                          Galleon Cluster 2
 │         │               │                │         │               │
 └─────────┼───────────────┘                └─────────┼───────────────┘
           │                                          │
-          │         remote-write (optional)           │
+          │         remote-write                     │
           └──────────────┬───────────────────────────┘
                          ↓
               Central Monitoring Cluster
@@ -45,7 +45,7 @@ The exporter tracks 8 add-on components in each galleon cluster:
 | ArgoCD | Deployment image tag | Checks `argocd-server` in `argocd` namespace |
 | Velero | Deployment image tag | Checks `velero` in `velero` namespace |
 
-## Metrics Exposed
+## Metrics Exposed(PromQL)
 
 The exporter exposes two metrics per component on port 9100:
 
