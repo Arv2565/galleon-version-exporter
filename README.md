@@ -446,6 +446,4 @@ Verify network connectivity from the galleon to the central Prometheus:
 ```bash
 kubectl run test-net --rm -it --image=busybox --restart=Never -- wget -qO- http://<CENTRAL_PROMETHEUS_URL>:9090/api/v1/status/config
 ```
-EOF
 
-echo "README created at ~/galleon-version-exporter/README.md"
