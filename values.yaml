@@ -1,0 +1,43 @@
+galleonName: ""
+
+image:
+  repository: python
+  tag: "3.12-slim"
+  pullPolicy: IfNotPresent
+
+scrapeInterval: 300s
+
+# Components to monitor
+# Each component defines how to get its version
+# method: "api_version" | "crd" | "deployment"
+components:
+  kubernetes:
+    method: api_version
+  eksa:
+    method: deployment
+    namespace: eksa-system
+    deployment: eksa-controller-manager
+  kubevirt:
+    method: crd
+    apiPath: /apis/kubevirt.io/v1/kubevirts
+    versionField: "status.observedKubeVirtVersion"
+  rook_ceph:
+    method: deployment
+    namespace: rook-ceph
+    deployment: rook-ceph-operator
+  gpu_operator:
+    method: deployment
+    namespace: gpu-operator
+    deployment: gpu-operator
+  cdi:
+    method: crd
+    apiPath: /apis/cdi.kubevirt.io/v1beta1/cdis
+    versionField: "status.observedVersion"
+  argocd:
+    method: deployment
+    namespace: argocd
+    deployment: argocd-server
+  velero:
+    method: deployment
+    namespace: velero
+    deployment: velero

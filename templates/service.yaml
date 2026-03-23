@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-version-exporter
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: version-exporter
+    galleon: {{ .Values.galleonName }}
+spec:
+  selector:
+    app: version-exporter
+    galleon: {{ .Values.galleonName }}
+  ports:
+    - name: metrics
+      port: 9100
+      targetPort: 9100

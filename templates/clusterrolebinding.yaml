@@ -1,0 +1,15 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ .Release.Name }}-version-exporter
+  labels:
+    app: version-exporter
+    galleon: {{ .Values.galleonName }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ .Release.Name }}-version-exporter
+subjects:
+  - kind: ServiceAccount
+    name: {{ .Release.Name }}-version-exporter
+    namespace: {{ .Release.Namespace }}

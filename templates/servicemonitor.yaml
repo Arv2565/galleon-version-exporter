@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ .Release.Name }}-version-exporter
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: version-exporter
+    galleon: {{ .Values.galleonName }}
+spec:
+  selector:
+    matchLabels:
+      app: version-exporter
+      galleon: {{ .Values.galleonName }}
+  endpoints:
+    - port: metrics
+      path: /metrics
+      interval: {{ .Values.scrapeInterval }}

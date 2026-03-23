@@ -1,0 +1,5 @@
+apiVersion: v2
+name: galleon-version-exporter
+description: Exports version and status metrics for Kubernetes add-on components
+version: 0.1.0
+appVersion: "1.0.0"

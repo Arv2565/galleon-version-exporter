@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-version-exporter
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: version-exporter
+    galleon: {{ .Values.galleonName }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: version-exporter
+      galleon: {{ .Values.galleonName }}
+  template:
+    metadata:
+      labels:
+        app: version-exporter
+        galleon: {{ .Values.galleonName }}
+    spec:
+      serviceAccountName: {{ .Release.Name }}-version-exporter
+      containers:
+        - name: exporter
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["python3", "-u", "/scripts/exporter.py"]
+          env:
+            - name: GALLEON_NAME
+              value: {{ .Values.galleonName | quote }}
+          ports:
+            - containerPort: 9100
+              name: metrics
+          volumeMounts:
+            - name: script
+              mountPath: /scripts
+      volumes:
+        - name: script
+          configMap:
+            name: {{ .Release.Name }}-exporter-script
